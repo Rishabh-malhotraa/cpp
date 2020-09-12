@@ -5,7 +5,7 @@
     }
   ],
   "settings": {
-    "workbench.colorTheme": "Dracula Soft",
+    "workbench.colorTheme": "Monokai",
     "workbench.colorCustomizations": {
       "[Brogrammer]": {
         // "tab.activeBorder": "#006992",
@@ -15,8 +15,9 @@
     },
     "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
     // "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
-    "workbench.editor.fontFamily": "Consolas, 'Courier New', monospace",
+    "editor.fontFamily": "Consolas , 'Courier New', monospace",
     "editor.fontSize": 14,
+    "editor.tabSize": 2,
     "clang-format.executable": "${workspaceRoot}",
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.fontFamily": "Consolas, 'Courier New', monospace",
@@ -27,8 +28,7 @@
       "*.tcc": "cpp",
       "random": "cpp",
       "regex": "cpp",
-      "vector": "cpp",
-      "functional": "cpp"
+      "ostream": "cpp"
     },
     "files.exclude": {
       "**/desktop.ini/": true,
