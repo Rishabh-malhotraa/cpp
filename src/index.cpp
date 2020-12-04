@@ -17,55 +17,49 @@ using namespace std;
 #define FOR(i, n) for (int i = (n); i >= 0; i--)
 #define FOA(i, a, b) for (int i = (a); i < (b); i++)
 
-int minJumpsUtil(vector<int> &arr, int pos, vector<int> memo, vector<bool> &visited)
+int maxProfit(vector<int> &prices)
 {
-	if (pos == arr.size() - 1)
-		return 0;
-	if (pos >= arr.size() || pos < 0)
-		return 0;
-	if (visited[pos] == true)
-		return 0;
+	int n = prices.size();
+	pair<int, int> dp[n];
 
-	visited[pos] = true;
+	// now do the dp trick from starting --> end
+	dp[0].first = 0;
+	dp[n - 1].second = 0;
 
-	int el = arr[pos];
-
-	vector<int>::iterator it = find(arr.begin() + pos, arr.end(), el);
-
-	if (memo[pos])
-		return memo[pos];
-
-	if (it != arr.end())
+	int min = prices[0];
+	for (int i = 1; i < n; i++)
 	{
-		memo[pos] = 1 + min(min(minJumpsUtil(arr, pos - 1, memo, visited), minJumpsUtil(arr, pos + 1, memo, visited)), minJumpsUtil(arr, distance(arr.begin(), it), memo, visited));
-	}
-	else
-	{
-		memo[pos] = 1 + min(minJumpsUtil(arr, pos - 1, memo, visited), minJumpsUtil(arr, pos + 1, memo, visited));
+		min = std::min(min, prices[i]);
+		int profitToday = prices[i] - min;
+		dp[i].first = max(dp[i].first, profitToday);
 	}
 
-	return memo[pos];
-}
+	int max = prices[n - 1];
 
-int minJumps(vector<int> &arr)
-{
-	// cam we use the sweep technique?
-	// 100--23--23--404--100--23--23--23--3--404
-	int n = arr.size();
-	vector<bool> visited(n, false);
-	vector<int> memo(n, 0);
-	return minJumpsUtil(arr, 0, memo, visited);
+	for (int i = n - 2; i >= 0; i--)
+	{
+		max = std::max(max, prices[i]);
+		int profitToday = max - prices[i];
+		dp[i].second = std::max(dp[i + 1].second, profitToday);
+	}
+	int sum = INT_MIN;
+	for (int i = 0; i < n; i++)
+		sum = std::max(sum, dp[i].first + dp[i].second);
+
+	return sum;
 }
 
 void solve()
 {
 	int n;
+
 	cin >> n;
 	vector<int> arr(n);
 	for (int i = 0; i < n; i++)
 		cin >> arr[i];
 
-	cout << minJumps(arr) << endl;
+	cout << maxProfit(arr) << endl;
+
 	return;
 }
 
